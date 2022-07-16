@@ -3,6 +3,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
+    // デバイスからの入力と出力を管理
     var captureSession = AVCaptureSession()
     
     // カメラデバイスの設定
@@ -16,6 +17,7 @@ class ViewController: UIViewController {
     // Sessionの出力を指定するためのオブジェクト
     var photoOutput: AVCapturePhotoOutput?
     
+    // カメラのプレビューを表示するためのレイヤ
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
 
     override func viewDidLoad() {
@@ -103,6 +105,7 @@ class ViewController: UIViewController {
     }
     
     func setupCaptureSession(){
+        // 解像度
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
     }
 }
