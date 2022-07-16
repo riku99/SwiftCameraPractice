@@ -25,6 +25,18 @@ class ViewController: UIViewController {
         setupInputOutput()
         setupPreviewLayer()
         captureSession.startRunning()
+        setupCaptureButton()
+    }
+    
+    func setupCaptureButton() {
+        let captureButton = UIButton()
+        captureButton.layer.cornerRadius = 35
+        // cornerRadiusの倍の大きさを設定すると円になる
+        captureButton.frame.size = CGSize(width: 70, height: 70)
+        captureButton.frame.origin.y = view.frame.height - 140
+        captureButton.center.x = view.center.x
+        captureButton.backgroundColor = UIColor.white
+        view.addSubview(captureButton)
     }
     
     // カメラのプレビューを表示するレイヤの設定
