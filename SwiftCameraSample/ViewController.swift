@@ -28,6 +28,14 @@ class ViewController: UIViewController {
         setupCaptureButton()
     }
     
+    @objc func captureButtonTapped() {
+        let settings = AVCapturePhotoSettings()
+        settings.flashMode = .auto
+        
+        // 撮影の開始。撮影データをdelegateで処理
+        self.photoOutput?.capturePhoto(with: settings, delegate: self as AVCapturePhotoCaptureDelegate)
+    }
+    
     func setupCaptureButton() {
         let captureButton = UIButton()
         captureButton.layer.cornerRadius = 35
@@ -36,6 +44,7 @@ class ViewController: UIViewController {
         captureButton.frame.origin.y = view.frame.height - 140
         captureButton.center.x = view.center.x
         captureButton.backgroundColor = UIColor.white
+        captureButton.addTarget(self, action: #selector(captureButtonTapped), for: .touchUpInside)
         view.addSubview(captureButton)
     }
     
@@ -98,3 +107,13 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if let imageData = photo.fileDataRepresentation() {
+            // Data型をUIImageオブジェクトに変換
+            let uiImage = UIImage(data: imageData)
+            // ライブラリに画像を保存
+            UIImageWriteToSavedPhotosAlbum(uiImage!, nil, nil, nil)
+        }
+    }
+}
